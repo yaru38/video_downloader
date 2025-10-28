@@ -23,7 +23,7 @@ default_config = {
     "video_quality": "720"   # 720 / 1080 / 2160
 }
 
-# ===== 設定の読み込み・保存 =====
+# ===== 設定の読み込み・保存 =====AAAA
 def load_config():
     if os.path.exists(config_path):
         with open(config_path, "r", encoding="utf-8") as f:
