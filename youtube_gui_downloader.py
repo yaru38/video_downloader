@@ -23,7 +23,7 @@ default_config = {
     "video_quality": "720"   # 720 / 1080 / 2160
 }
 
-# ===== 設定の読み込み・保存 =====AAAA
+# ===== 設定の読み込み・保存 =====
 def load_config():
     if os.path.exists(config_path):
         with open(config_path, "r", encoding="utf-8") as f:
@@ -155,6 +155,7 @@ def open_settings():
     settings_window.title("設定")
     settings_window.geometry("400x270")
     settings_window.resizable(False, False)
+    settings_window.protocol("WM_DELETE_WINDOW", apply_settings)  # ×ボタンでも保存して閉じる
 
     # ------- 上部（入力系） -------
     content_frame = tb.Frame(settings_window)
