@@ -6,3 +6,4 @@
 <<<<<<< Updated upstream
 # 設定ファイル
 *.json
+__pycache__/youtube_gui_downloader.cpython-310.pyc
