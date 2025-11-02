@@ -178,7 +178,6 @@ def open_settings():
 
     settings_window = tb.Toplevel(root)
     settings_window.title("設定")
-    settings_window.geometry("400x270")
     settings_window.resizable(False, False)
     settings_window.protocol("WM_DELETE_WINDOW", apply_settings)  # ×ボタンでも保存して閉じる
 
@@ -207,7 +206,7 @@ def open_settings():
         button_frame, 
         text="保存して閉じる", 
         width=25,
-        height=10,
+        height=2,
         command=apply_settings
         ).pack()
     
