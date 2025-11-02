@@ -227,13 +227,13 @@ style.configure('TButton', font=APP_FONT)
 style.configure('TLabel', font=APP_FONT)
 style.configure('TEntry', font=APP_FONT)
 style.configure('TMenubutton', font=APP_FONT)
-root.title("YouTube ダウンローダー")
+root.title("Video ダウンローダー")
 
 title_var = tb.StringVar(value="タイトル: ---")
 title_label = tb.Label(root, textvariable=title_var)
 title_label.pack(pady=(10, 0))
 
-tb.Label(root, text="YouTubeのURLを入力してね").pack(pady=5)
+tb.Label(root, text="動画のURLを入力してね").pack(pady=5)
 url_entry = tb.Entry(root, width=65)
 url_entry.pack(pady=5)
 
