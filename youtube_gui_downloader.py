@@ -152,14 +152,14 @@ def handle_drop(event):
         progress_var.set(f"⚠ エラー: {e}")
 
 
-def download_from_txt():
+def download_from_txt(mode='mp4'):
     filepath = filedialog.askopenfilename(filetypes=[("Text Files", "*.txt")])
     if not filepath:
         return
     with open(filepath, 'r', encoding='utf-8') as f:
         urls = [line.strip() for line in f if line.strip()]
     if urls:
-        download_video(urls, mode='mp4')
+        download_video(urls, mode=mode)
 
 # ===== 設定画面 =====
 def open_settings():
@@ -240,7 +240,8 @@ url_entry.bind("<FocusOut>", update_title)
 
 tb.Button(root, text="MP3で保存", command=lambda: download_single('mp3')).pack(pady=5)
 tb.Button(root, text="MP4で保存", command=lambda: download_single('mp4')).pack(pady=5)
-tb.Button(root, text="txtからMP4一括保存", command=download_from_txt).pack(pady=5)
+tb.Button(root, text="txtからMP4一括保存", command=lambda: download_from_txt('mp4')).pack(pady=5)
+tb.Button(root, text="txtからMP3一括保存", command=lambda: download_from_txt('mp3')).pack(pady=5)
 tb.Button(root, text="⚙ 設定", command=open_settings).pack(pady=15)
 
 progress_var = tb.StringVar(value="進捗: ---")
