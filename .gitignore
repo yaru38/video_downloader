@@ -181,3 +181,4 @@ cython_debug/
 .cursorindexingignore
 settings.json
 url.txt
+*.mp3
