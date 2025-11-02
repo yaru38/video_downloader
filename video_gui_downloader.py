@@ -178,7 +178,6 @@ def open_settings():
 
     settings_window = tb.Toplevel(root)
     settings_window.title("設定")
-    settings_window.geometry("400x270")
     settings_window.resizable(False, False)
     settings_window.protocol("WM_DELETE_WINDOW", apply_settings)  # ×ボタンでも保存して閉じる
 
@@ -206,8 +205,9 @@ def open_settings():
     tk.Button(
         button_frame, 
         text="保存して閉じる", 
-        width=25,
-        height=10,
+        width=20,
+        height=2,
+        font=APP_FONT,
         command=apply_settings
         ).pack()
     
@@ -219,15 +219,21 @@ config = load_config()
 
 root = TkinterDnD.Tk()
 style = tb.Style(theme="darkly")  # 後からダーク配色を流し込む
-style.master=root
-style.configure('.', foreground='white')  
-root.title("YouTube ダウンローダー")
+style.master = root
+APP_FONT = ("しねきゃぷしょん", 11)
+root.option_add("*Font", APP_FONT)
+style.configure('.', foreground='white', font=APP_FONT)
+style.configure('TButton', font=APP_FONT)
+style.configure('TLabel', font=APP_FONT)
+style.configure('TEntry', font=APP_FONT)
+style.configure('TMenubutton', font=APP_FONT)
+root.title("Video ダウンローダー")
 
 title_var = tb.StringVar(value="タイトル: ---")
 title_label = tb.Label(root, textvariable=title_var)
 title_label.pack(pady=(10, 0))
 
-tb.Label(root, text="YouTubeのURLを入力してね").pack(pady=5)
+tb.Label(root, text="動画のURLを入力してね").pack(pady=5)
 url_entry = tb.Entry(root, width=65)
 url_entry.pack(pady=5)
 
