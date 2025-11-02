@@ -205,8 +205,9 @@ def open_settings():
     tk.Button(
         button_frame, 
         text="保存して閉じる", 
-        width=25,
+        width=20,
         height=2,
+        font=APP_FONT,
         command=apply_settings
         ).pack()
     
@@ -218,8 +219,14 @@ config = load_config()
 
 root = TkinterDnD.Tk()
 style = tb.Style(theme="darkly")  # 後からダーク配色を流し込む
-style.master=root
-style.configure('.', foreground='white')  
+style.master = root
+APP_FONT = ("しねきゃぷしょん", 11)
+root.option_add("*Font", APP_FONT)
+style.configure('.', foreground='white', font=APP_FONT)
+style.configure('TButton', font=APP_FONT)
+style.configure('TLabel', font=APP_FONT)
+style.configure('TEntry', font=APP_FONT)
+style.configure('TMenubutton', font=APP_FONT)
 root.title("YouTube ダウンローダー")
 
 title_var = tb.StringVar(value="タイトル: ---")
