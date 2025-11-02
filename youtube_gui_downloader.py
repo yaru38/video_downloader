@@ -23,7 +23,7 @@ default_config = {
     "video_quality": "720"   # 720 / 1080 / 2160
 }
 
-# ===== 設定の読み込み・保存 =====AAAA
+# ===== 設定の読み込み・保存 =====
 def load_config():
     if os.path.exists(config_path):
         with open(config_path, "r", encoding="utf-8") as f:
@@ -85,10 +85,35 @@ def download_video(urls, mode):
             'no_warnings': True,
         }
     elif mode == 'mp4':
+        try:
+            target_height = int(config.get("video_quality", default_config["video_quality"]))
+        except (TypeError, ValueError):
+            target_height = int(default_config["video_quality"])
+
+        # 映像・音声ともに mp4/m4a が無いケースが多いので柔軟にフォールバックする
+        video_candidates = [
+            f"bv*[ext=mp4][height<={target_height}]",
+            f"bv*[height<={target_height}]",
+            "bv*[ext=mp4]",
+            "bv*",
+        ]
+        audio_candidates = [
+            "ba[ext=m4a]",
+            "ba",
+        ]
+
+        format_chain = [f"{v}+{a}" for v in video_candidates for a in audio_candidates]
+        format_chain.extend(["b[ext=mp4]", "best"])
+        format_selector = "/".join(format_chain)
+
         options = {
-            'format': f'bestvideo[ext=mp4][height>={config["video_quality"]}]+bestaudio[ext=m4a]/best[ext=mp4][height>={config["video_quality"]}]',
+            'format': format_selector,
             'outtmpl': output_template,
             'merge_output_format': 'mp4',
+            'postprocessors': [{
+                'key': 'FFmpegVideoConvertor',
+                'preferedformat': 'mp4',  # yt-dlp側の綴りに合わせる
+            }],
             'progress_hooks': [progress_hook],
             'no_warnings': True,
         }
@@ -155,6 +180,7 @@ def open_settings():
     settings_window.title("設定")
     settings_window.geometry("400x270")
     settings_window.resizable(False, False)
+    settings_window.protocol("WM_DELETE_WINDOW", apply_settings)  # ×ボタンでも保存して閉じる
 
     # ------- 上部（入力系） -------
     content_frame = tb.Frame(settings_window)
