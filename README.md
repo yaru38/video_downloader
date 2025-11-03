@@ -16,16 +16,6 @@ mp4、mp3をダウンロードするスクリプトです。
 
 本スクリプトはほぼOpen AIが提供するcodexによって作成されています。よって、投稿者にコードの説明を求めてるのはご遠慮ください。
 
-## 必要環境
-
-- Python
-> `pip install yt-dlp tkinterdnd2 ttkbootstrap`
-- yt-dlp
-- tkinterdnd2
-- ttkbootstrap
-> `choco install ffmpeg`
-- FFmpeg
-
 ## 使用方法
 
 - `python video_gui_downloader.py` で起動
